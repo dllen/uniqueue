@@ -31,6 +31,6 @@ Run:
 
 Forward [http://localhost:9876/producer](http://localhost:9876/producer) to produce some jobs.
 
-Then the consumer will call [http://localhost:9876/consumer](http://localhost:9876/consumer/weixin) to excute job.
+Then the consumer will call [http://localhost:9876/consumer/weixin](http://localhost:9876/consumer/weixin) to excute job.
 
 See [http://localhost:9876/server](http://localhost:9876/server) for the queue status.
