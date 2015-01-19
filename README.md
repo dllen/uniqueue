@@ -3,6 +3,10 @@ uniqueue
 
 # Quick Start
 
+Preinstall:
+
+	install and run [beanstalkd](http://kr.github.io/beanstalkd/)
+
 Get the Code:
 
 	git clone https://github.com/yijingping/uniqueue.git
@@ -10,7 +14,8 @@ Get the Code:
 Install dependent library:
 
 	cd uniqueue
-	sudo npm install
+	npm install
+	npm install pm2 -g
 
 Set configuration:
 
@@ -22,8 +27,10 @@ Set configuration:
 
 Run:
 
-	node app.js
+	node bin/main.js
 
-See [http://localhost:80/producer](http://localhost:80/producer) for the producer page.
-See [http://localhost:80/server](http://localhost:80/server) for the server page.
-See [http://localhost:80/consumer](http://localhost:80/consumer) for the consumer page.
+Forward [http://localhost:9876/producer](http://localhost:9876/producer) to produce some jobs.
+
+Then the consumer will call [http://localhost:9876/consumer](http://localhost:9876/consumer/weixin) to excute job.
+
+See [http://localhost:9876/server](http://localhost:9876/server) for the queue status.

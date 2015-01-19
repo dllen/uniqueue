@@ -24,6 +24,10 @@
     "async": "0.9.0",
 
     "connect-mongo": "0.4.1",
-    "express-session": "1.8.2"
+    "express-session": "1.8.2",
+
+    "optimist": "0.6.1",
+    "fivebeans": "1.1.1",
+    "request": "2.51.0"
   }
 }

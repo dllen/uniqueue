@@ -1,3 +1,20 @@
-{	
+{
+	"beanstalkd":{
+		"host": "127.0.0.1",
+		"port": 11300
+	},
+	"queues":{
+		"weixin": {
+			"queue_name": "weixin",
+			"concurrency": 2,
+			"taskUrl": "http://localhost:80/consumer/weixin"
+
+		},
+		"sms": {
+			"queue_name": "sms",
+			"concurrency": 1,
+			"taskUrl": "http://localhost:80/consumer/sms"
+		}
+	}
 
 }

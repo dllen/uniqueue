@@ -25,7 +25,6 @@ app.use('/static', express.static(path.join(__dirname, '/static')));
 /*************************************************
     import new modles here
  *************************************************/
-// mongoose setup
 
 var routes = require('./apps/producer/index');
 app.use('/producer', routes);
