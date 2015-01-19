@@ -5,7 +5,7 @@ uniqueue
 
 Preinstall:
 
-	install and run [beanstalkd](http://kr.github.io/beanstalkd/)
+  install and run [beanstalkd](http://kr.github.io/beanstalkd/)
 
 Get the Code:
 
