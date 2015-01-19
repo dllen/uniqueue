@@ -15,7 +15,6 @@ Install dependent library:
 
 	cd uniqueue
 	npm install
-	npm install pm2 -g
 
 Set configuration:
 
@@ -27,7 +26,7 @@ Set configuration:
 
 Run:
 
-	node bin/main.js
+	npm start	
 
 Forward [http://localhost:9876/producer](http://localhost:9876/producer) to produce some jobs.
 
