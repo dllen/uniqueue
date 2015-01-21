@@ -21,11 +21,11 @@ var connect = function(callback){
     })
     .on('error', function(err)
     {
-        callback('error');   
+        callback('error');
     })
     .on('close', function()
     {
-        callback('close');  
+        callback('close');
     })
     .connect();
 };

@@ -1,0 +1,8 @@
+{
+  "name": "nodejs-uniqueue-test",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "request":""
+  }
+}

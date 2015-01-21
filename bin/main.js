@@ -8,7 +8,7 @@ var start = function(callback){
   async.waterfall([
       function(next){
          pm2.connect(next);
-      },      
+      },
       function(next){
          startServer(next);
       },
@@ -29,8 +29,8 @@ var startWorkers = function(callback){
 var startOne = function(key, callback){
   var args = queues[key];
   pm2.start(
-    __dirname+'/worker.js', 
-    { name: args.queue_name, instances: args.concurrency, scriptArgs:['-q '+args.queue_name], executeCommand:true}, 
+    __dirname+'/worker.js',
+    { name: args.queue_name, instances: args.concurrency, scriptArgs:['-q '+args.queue_name], executeCommand:true},
     callback
   );
 };
