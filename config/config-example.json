@@ -7,13 +7,13 @@
 		"weixin": {
 			"queue_name": "weixin",
 			"concurrency": 2,
-			"taskUrl": "http://localhost:80/consumer/weixin"
+			"taskUrl": "http://localhost:9876/consumer/weixin"
 
 		},
 		"sms": {
 			"queue_name": "sms",
 			"concurrency": 1,
-			"taskUrl": "http://localhost:80/consumer/sms"
+			"taskUrl": "http://localhost:9876/consumer/sms"
 		}
 	}
 
