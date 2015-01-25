@@ -35,6 +35,8 @@ Then the consumer will call [http://localhost:9876/api/consumer/api/weixin](http
 
 See [http://localhost:9876](http://localhost:9876) to check the queue status.
 
+![manual image](../blob/master/static/images/about.png?raw=true  =600x)
+
 # Document
 * __producer__
 
