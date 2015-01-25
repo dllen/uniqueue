@@ -11,13 +11,13 @@ var client = null;
 var pm2 = require('pm2');
 var config = require('../../config/config');
 var nconf = require('nconf');
-
 nconf
   .file({ file: __dirname+'/../../config/config.json' })
   .env();
+client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
 
 var connect = function(callback){
-	client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
+
 	client
     .on('connect', function()
     {
