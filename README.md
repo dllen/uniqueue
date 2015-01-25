@@ -15,6 +15,7 @@ Install dependent library:
 
 	cd uniqueue
 	npm install
+	bower install
 
 Set configuration:
 
@@ -33,3 +34,7 @@ Forward [http://localhost:9876/producer](http://localhost:9876/producer) to prod
 Then the consumer will call [http://localhost:9876/consumer/weixin](http://localhost:9876/consumer/weixin) to excute job.
 
 See [http://localhost:9876/server](http://localhost:9876/server) for the queue status.
+
+# Roadmap
+* 权限管理
+* 监控报警

@@ -25,7 +25,7 @@
                   </tr></thead>
                   <tbody><tr>
                     <td>[[ item.stats['total-jobs'] || "--" ]]</td>
-                    <td>[[item.stats['current-jobs-reserved'] || "--" ]]</td>
+                    <td>[[item.stats['total-jobs'] - item.stats['current-jobs-ready'] - item.stats['current-jobs-reserved'] - item.stats['current-jobs-delayed'] - item.stats['current-jobs-buried'] || "--" ]]</td>
                     <td>[[item.stats['current-jobs-ready'] || "--" ]]</td>
                     <td>[[item.stats['current-jobs-delayed'] || "--" ]]</td>
                     <td>[[item.stats['current-watching'] || "--" ]] / [[item.config.concurrency]]</td>
