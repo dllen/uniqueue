@@ -65,9 +65,9 @@ var producing = function(req, res){
 	        }
         ], function(err, result){
             if(err){
-            	res.json({ret:0, message:'添加失败！'})
+            	res.json({ret:1, message:'添加失败！'})
             }else{
-            	res.json(result);
+            	res.json(ret:0, message:'添加成功！');
             }
     });
     
