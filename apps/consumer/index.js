@@ -10,11 +10,13 @@ router.get('/', function(req, res) {
 /* GET home page. */
 router.post('/weixin', function(req, res) {
   // TODO
-  // add code here for sending weixin msg  
+  // add code here for sending weixin msg
+  console.log(req.body);  
   res.json({'ret':0});
 });
 /* GET home page. */
 router.post('/sms', function(req, res) {
+  console.log(req.body); 
   res.json({'ret':0});
 });
 module.exports = router;

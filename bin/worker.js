@@ -1,4 +1,3 @@
-console.log('########## worker start');
 var argv = require('optimist')
     .usage('Usage: $0 -q [str]')
     .demand(['q'])
@@ -59,7 +58,8 @@ var reserve = function(){
 		],
 		function(err, result){
 			if(err){
-				if(jid) client.release(jid, 0, 1, function(){}); // 异步执行
+				//if(jid) client.release(jid, 0, 1, function(){}); // 异步执行
+				if(jid) client.destroy(jid, function(){}); // 异步执行
 			} else {
 				if(jid) client.destroy(jid, function(){}); // 异步执行
 			}
@@ -69,9 +69,10 @@ var reserve = function(){
 };
 
 var work = function(data, callback){
-	var url = queueConf.taskUrl;
-	var res;
-	request.post({url: url, form: {data:data}}, function(error,response,body){
+	console.log('####data=', data);
+	var params = JSON.parse(data);
+	var url = params.taskUrl;
+	request.post({url: params.taskUrl, form: params.data}, function(error,response,body){
 		if (!error && response.statusCode == 200) {
 			try {
 				res = JSON.parse(body);

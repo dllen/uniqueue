@@ -20,20 +20,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/static', express.static(path.join(__dirname, '/static')));
+app.use("/", express.static(path.join(__dirname, '/static')));
 
 /*************************************************
     import new modles here
  *************************************************/
 
-var routes = require('./apps/producer/index');
-app.use('/producer', routes);
+var producer = require('./apps/producer/index');
+app.use('/api/producer', producer);
 
-var routes = require('./apps/server/index');
-app.use('/server', routes);
+var server = require('./apps/server/index');
+app.use('/api/server', server);
 
-var routes = require('./apps/consumer/index');
-app.use('/consumer', routes);
+var consumer = require('./apps/consumer/index');
+app.use('/api/consumer', consumer);
 
 
 /*************************************************/

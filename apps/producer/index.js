@@ -34,10 +34,19 @@ router.route('/')
 });
 
 var producing = function(req, res){
-    var tube = req.body['queue_name'] || 'weixin';
-    var data = req.body['data'];
-    if (data) { data = JSON.parse(data); }
-    else { data =['a', 'b', 'c'] }
+    var tube = req.body['queue_name'] || 'sms';
+    var tasks = req.body['tasks'];
+    var data;
+    if (tasks) { data = JSON.parse(tasks); }
+    else { 
+        data =[
+            {taskUrl:'http://localhost:9876/api/consumer/weixin', priority:0, sendTime:0, timeout:60, retry:0, data:{to:'bob', msg:'新年快乐1'}},
+            {taskUrl:'http://localhost:9876/api/consumer/sms', priority:0, sendTime:0, timeout:60, retry:0, data:{to:'tom', msg:'新年快乐1'}},
+            {taskUrl:'http://localhost:9876/api/consumer/sms', priority:0, sendTime:0, timeout:60, retry:0, data:{to:'tom', msg:'新年快乐2'}},
+            {taskUrl:'http://localhost:9876/api/consumer/weixin', priority:0, sendTime:0, timeout:60, retry:0, data:{to:'bob', msg:'新年快乐2'}},
+            {taskUrl:'http://localhost:9876/api/consumer/weixin', priority:0, sendTime:0, timeout:60, retry:0, data:{to:'bob', msg:'新年快乐3'}}
+        ] 
+    }
     async.waterfall([
 	        function(next){
 	            connect(next);
@@ -47,7 +56,11 @@ var producing = function(req, res){
 	        },
 	        function(tubename, next){
 	            async.map(data, function(item, cb){
-	               client.put(0, 0, 60, item, cb);
+                    var priority = item.priority || 0;
+                    var delay = item.sendTime - new Date().getTime() / 1000;
+                    delay = delay > 0 ? delay : 0;
+                    var ttr = 60;
+	               client.put(priority, delay, ttr, JSON.stringify(item), cb);
 	            },next);
 	        }
         ], function(err, result){

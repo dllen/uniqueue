@@ -28,9 +28,10 @@ var startWorkers = function(callback){
 
 var startOne = function(key, callback){
   var args = queues[key];
+  if(!args) {return callback(null, null);}
   pm2.start(
     __dirname+'/worker.js', 
-    { name: args.queue_name, instances: args.concurrency, scriptArgs:['-q '+args.queue_name], executeCommand:true}, 
+    { name: args.queue_name, instances: args.concurrency, force:true, scriptArgs:['-q '+args.queue_name], executeCommand:true}, 
     callback
   );
 };
@@ -72,5 +73,13 @@ var main = function(){
   );
 };
 
-main();
+module.exports = {
+  startOne: startOne
+};
+
+// only run when `node main.js`
+if (!module.parent) {
+    main();
+}
+
 
