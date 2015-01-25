@@ -17,6 +17,10 @@ router.post('/weixin', function(req, res) {
 /* GET home page. */
 router.post('/sms', function(req, res) {
   console.log(req.body); 
-  res.json({'ret':0});
+  // 模拟处理时间为1s
+  setTimeout(function(){
+  	  res.json({'ret':0});
+  }, 1000);
+
 });
 module.exports = router;

@@ -67,7 +67,7 @@ var producing = function(req, res){
             if(err){
             	res.json({ret:1, message:'添加失败！'})
             }else{
-            	res.json(ret:0, message:'添加成功！');
+            	res.json({ret:0, message:'添加成功！'});
             }
     });
     

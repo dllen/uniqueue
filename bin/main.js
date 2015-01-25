@@ -37,7 +37,8 @@ var startOne = function(key, callback){
 };
 
 var startServer = function(callback){
-  pm2.start(__dirname+'/../app.js', {name: 'server'}, callback);
+  callback(null, null);
+  //pm2.start(__dirname+'/../app.js', {name: 'server'}, callback);
 };
 
 // kill

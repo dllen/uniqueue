@@ -29,7 +29,7 @@ controllers.controller('HomeCtrl', ['$scope', '$http', '$location', '$interval',
       );
     };
     refreshData();
-    var promise = $interval(refreshData, 10000);
+    var promise = $interval(refreshData, 2000);
     // Cancel interval on page changes
     $scope.$on('$destroy', function(){
         if (angular.isDefined(promise)) {
