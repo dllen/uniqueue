@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/main.js",
-    "preinstall": "npm install -g pm2@0.10.8"	
+    "start": "node ./bin/main.js && supervisor node app.js",
+    "preinstall": "npm install -g pm2@0.10.8 supervisor",
+    "stop": "pm2 kill"	
   },
   "dependencies": {
     "express": "~4.8.6",

@@ -4,8 +4,8 @@ uniqueue
 # Quick Start
 
 Preinstall:
-
-  install and run [beanstalkd](http://kr.github.io/beanstalkd/)
+	
+install and run [beanstalkd](http://kr.github.io/beanstalkd/) in persistent mode ( `beanstalkd -b /path/to/log_dir` ).
 
 Get the Code:
 

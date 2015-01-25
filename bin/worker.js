@@ -19,6 +19,9 @@ var main = function(){
 			},
 			function(result, next){
 				client.watch(queue_name, next);
+			},
+			function(result, next){
+				client.use(queue_name, next);
 			}
 		], 
 		function(err, result){
@@ -46,6 +49,7 @@ var connect = function(callback){
 
 var reserve = function(){
 	var jid;
+	var params;
 	async.waterfall([
 			function(next){
 				client.reserve(next);
@@ -53,38 +57,52 @@ var reserve = function(){
 			function(jobid, payload, next){
 				console.log('####', jobid, payload.toString());
 				jid = jobid;
-				work(payload.toString(), next);
+				params = JSON.parse(payload.toString());
+				work(params, next);
 			},
 		],
 		function(err, result){
-			if(err){
-				//if(jid) client.release(jid, 0, 1, function(){}); // 异步执行
-				if(jid) client.destroy(jid, function(){}); // 异步执行
-			} else {
-				if(jid) client.destroy(jid, function(){}); // 异步执行
+			if(err && params && jid){
+				// 处理失败
+				client.destroy(jid, function(err){
+					if (!err && params.retry > 0){
+						var priority = params.priority || 9999;
+	                    var delay = 3;
+	                    var ttr = (params.timeout || 60) + 60;
+	                    params['retry'] -= 1;
+		                client.put(priority, 3, ttr, JSON.stringify(params), function(){
+		                	return reserve();
+		                });
+					} else{
+						return reserve();
+					}
+				});
+			} else if(jid) {
+				client.destroy(jid, function(){
+					return reserve();
+				}); // 异步执行
+			} else{
+				return reserve();
 			}
-			reserve();
 		}
 	);
 };
 
-var work = function(data, callback){
-	console.log('####data=', data);
-	var params = JSON.parse(data);
+var work = function(params, callback){
 	var url = params.taskUrl;
-	request.post({url: params.taskUrl, form: params.data}, function(error,response,body){
+	request.post({url: params.taskUrl, form: params.data, timeout: params.timeout||60}, function(error,response,body){
 		if (!error && response.statusCode == 200) {
 			try {
 				res = JSON.parse(body);
 			}catch (e) {
-				return callback('调用' + url + data + '失败', null);
+				return callback('调用' + url + params + '失败', null);
 			}
 		    if (res.ret === 0){
 		    	return callback(null, null);
 		    }
 		}
 
-		return callback('调用' + url + data + '失败', null);
+		return callback('调用' + url + params + '失败', null);
 		}
 	);
 };
