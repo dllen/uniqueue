@@ -5,7 +5,7 @@ var generate_tasks = function (payloads) {
     var tasks = new Array(len);
     for(var i in payloads){
         tasks[i] = {
-            'taskUrl': 'http://localhost:8080/api/consumer/success/',//'http://wxstage.sephora.cn/index.php?g=Interface&m=Message&a=tplSend&token=ychodn1421823030', //任务执行的url
+            'taskUrl': 'http://localhost:1234/', //'http://wxstage.sephora.cn/index.php?g=Interface&m=Message&a=tplSend&token=ychodn1421823030', //任务执行的url
             'priority':0, // 优先级（0 ~ 2^32）数值越低，优先级越高
             'sendTime':0, // 发送时间戳（精确到秒），如果数值为0，表示立即执行
             'timeout':60, // 超时时间（单位：秒）
@@ -41,3 +41,81 @@ var producer = function(payloads, callback){
 };
 
 exports.producer = producer;
+
+
+if (!module.parent) {
+    var payloads = [
+        {
+            'open_id': 'oiZvSjlKhNvj88z22xPq0HjpvR0o',
+            'template_id':'ocNRuyE18pUjJ95PACenUpLr96nD6FeeQeDFdCXCcf0',
+            'url':'http://www.baidu.com',
+            'data':{
+                'first':{
+                    'value':'亲爱的用户,您有优惠券即将过期',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketStore':{
+                    'value':'asdasd',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketRule':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                },
+                'remark':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                }
+            }
+        },
+        {
+            'open_id': 'oiZvSjlKhNvj88z22xPq0HjpvR0o',
+            'template_id':'ocNRuyE18pUjJ95PACenUpLr96nD6FeeQeDFdCXCcf0',
+            'url':'http://www.baidu.com',
+            'data':{
+                'first':{
+                    'value':'亲爱的用户,您有优惠券即将过期',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketStore':{
+                    'value':'asdasd',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketRule':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                },
+                'remark':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                }
+            }
+        },
+        {
+            'open_id': 'oiZvSjlKhNvj88z22xPq0HjpvR0o',
+            'template_id':'ocNRuyE18pUjJ95PACenUpLr96nD6FeeQeDFdCXCcf0',
+            'url':'http://www.baidu.com',
+            'data':{
+                'first':{
+                    'value':'亲爱的用户,您有优惠券即将过期',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketStore':{
+                    'value':'asdasd',
+                    'color':'#0A0A0A'
+                },
+                'orderTicketRule':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                },
+                'remark':{
+                    'value':'remark',
+                    'color':'#0A0A0A'
+                }
+            }
+        },
+    ];
+    producer(payloads, function(err, result){
+        console.log(err, result);
+    });
+}
