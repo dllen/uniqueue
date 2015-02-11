@@ -49,7 +49,7 @@ See [http://localhost:9876](http://localhost:9876) to check the queue status.
 	PARAMS:
 		
 		queue_name: 队列名称，如weixin
-		tasks: 任务（TASK的数组），如：[TASK1, TASK2, TASK3, ...]。 必须序列化为字符串（JSON.stringify([TASK1, TASK2, TASK3, ...])）
+		tasks: 任务（TASK的数组），如：[TASK1, TASK2, TASK3, ...]
 		
 	TASK:
 	
@@ -59,7 +59,7 @@ See [http://localhost:9876](http://localhost:9876) to check the queue status.
 			sendTime:0, // 发送时间戳（精确到秒），如果数值为0，表示立即执行
 			timeout:60, // 超时时间（单位：秒）
 			retry:0, // 重试次数
-			data:{to:'bob', msg:'新年快乐1'} // Post给taskUrl的数据，会以form格式提交
+			data:{to:'bob', msg:'新年快乐1'} // Post给taskUrl的数据，会以json格式提交
 		},
 
 	RETURN：
@@ -80,12 +80,16 @@ See [http://localhost:9876](http://localhost:9876) to check the queue status.
 	URL: http://localhost:9876/api/consumer/weixin
 	
     METHOD: POST
+    
+    Content-Type: application/json
 	
 	PARAMS: 
 	
 		// 数据字段和Task中的data一致
-		to:'bob'
-		msg:'新年快乐1'
+		{
+			to:'bob'
+			msg:'新年快乐1'
+		}
 	
 	RETURN:
 	
