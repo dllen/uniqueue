@@ -49,7 +49,7 @@ See [http://localhost:9876](http://localhost:9876) to check the queue status.
 	PARAMS:
 		
 		queue_name: 队列名称，如weixin
-		tasks: 任务（TASK的数组），如：[TASK1, TASK2, TASK3, ...]。 必须序列化为字符串（JSON.stringify([TASK1, TASK2, TASK3, ...])）
+		tasks: 任务（TASK的数组），如：[TASK1, TASK2, TASK3, ...]
 		
 	TASK:
 	
