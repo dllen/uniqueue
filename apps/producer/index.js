@@ -5,10 +5,8 @@ var async = require('async');
 var fivebeans = require('fivebeans');
 var config = require('../../config/config');
 var beanstalkd = config.get("beanstalkd");
-var client = null;
 
-var connect = function(callback){
-	client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
+var connect = function(client, callback){
 	client
     .on('connect', function()
     {
@@ -20,27 +18,25 @@ var connect = function(callback){
     })
     .on('close', function()
     {
-        callback('close');  
+        //callback('close');  
     })
     .connect();
 };
 
 router.route('/')
-.get(function(req, res) {
-  producing(req,res);
-})
 .post(function(req, res) {
   producing(req,res);
 });
 
 var producing = function(req, res){
     console.log(req.body, req.body.tasks[0].payload);
+    var client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
     var data = req.body;
     var tube = data.queue_name;
     var tasks = data.tasks;
     async.waterfall([
 	        function(next){
-	            connect(next);
+	            connect(client, next);
 	        },
 	        function(result, next){
 	            client.use(tube, next);
@@ -55,9 +51,10 @@ var producing = function(req, res){
 	            }, next);
 	        }
         ], function(err, result){
+            client.end();
             if(err){
                 console.log('#####producing###', err, result);
-            	res.json({'ret': 1, 'message':'添加失败！'})
+            	res.json({'ret': 1, 'message':'添加失败！'});
             }else{
             	res.json({'ret': 0, 'message':'添加成功！'});
             }

@@ -7,16 +7,14 @@ var async = require('async');
 var fivebeans = require('fivebeans');
 var config = require('../../config/config');
 var beanstalkd = config.get("beanstalkd");
-var client = null;
 var pm2 = require('pm2');
 var config = require('../../config/config');
 var nconf = require('nconf');
 nconf
   .file({ file: __dirname+'/../../config/config.json' })
   .env();
-client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
 
-var connect = function(callback){
+var connect = function(client, callback){
 
 	client
     .on('connect', function()
@@ -29,7 +27,7 @@ var connect = function(callback){
     })
     .on('close', function()
     {
-        callback('close');  
+        //callback('close');  
     })
     .connect();
 };
@@ -42,7 +40,7 @@ var get_tubes = function(queues){
 	return tubes;
 };
 
-var server_stat = function(callback){
+var server_stat = function(client, callback){
 	var queues = nconf.get('queues');
 	var tubes = get_tubes(queues);
 	console.log('##tubes:', tubes);
@@ -56,21 +54,22 @@ var server_stat = function(callback){
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	console.log('###########');
 	var beanstalkd = nconf.get('beanstalkd');
 	var queues = nconf.get('queues');
 	var tubes = get_tubes(queues);
 	console.log('##tubes:', tubes);
 	console.log('###queues', queues);
+	var client = new fivebeans.client(beanstalkd.host, beanstalkd.port);
 	async.auto({
 		connect: function(next){
-			connect(next);
+			connect(client, next);
 		},
 		server_stat:['connect', function(next, results){
-			server_stat(next);
+			server_stat(client, next);
 		}]
 
 	},function(err, results){
+		client.end();
 		if(err){
 			return res.json({ret:1});
 		}
