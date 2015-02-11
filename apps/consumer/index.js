@@ -32,7 +32,7 @@ router.post('/test_weixin_tpl_msg', function(req, res) {
   console.log(req.body); 
   var tpl_data = JSON.parse(req.body['data']);
   var options = {
-    uri: 'http://wxstage.sephora.cn/index.php?g=Interface&m=Message&a=tplSend&token=ychodn1421823030',
+    uri: 'http://wx.sephora.cn/index.php?g=CustomWap&m=Bindcard&a=bond&token=ulstbc1414854920',
     method: 'POST',
     json: {
       'open_id': req.body['open_id'],
@@ -43,10 +43,11 @@ router.post('/test_weixin_tpl_msg', function(req, res) {
   };
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body) // Print the shortened url.
+      console.log('###执行成功');
       res.json({'ret':0});
     } else {
-      res.json({'ret':1, 'message':JSON.stringify(body)});
+      console.log('###执行失败');
+      res.json({'ret':1});
     }
   });
 });

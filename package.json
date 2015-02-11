@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/main.js && supervisor node app.js",
-    "preinstall": "npm install -g pm2@0.10.8 supervisor",
+    "start": "node ./bin/main.js && nohup supervisor app.js &",
     "stop": "pm2 kill"	
   },
   "dependencies": {
@@ -30,6 +29,7 @@
 
     "optimist": "0.6.1",
     "fivebeans": "1.1.1",
-    "request": "2.51.0"
+    "request": "2.51.0",
+    "line-reader": ""
   }
 }

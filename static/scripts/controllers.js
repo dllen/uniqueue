@@ -20,7 +20,6 @@ controllers.controller('HomeCtrl', ['$scope', '$http', '$location', '$interval',
               $location.path(data.url);
             }
           }else if (data.ret === 1){
-            alert(data.message);
           }else{
             $scope.data = data.data;
             $scope.beanstalkd = data.beanstalkd;

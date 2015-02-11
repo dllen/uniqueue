@@ -54,10 +54,10 @@ var reserve = function(){
 			function(next){
 				client.reserve(next);
 			},
-			function(jobid, payload, next){
-				console.log('####', jobid, payload.toString());
+			function(jobid, jobdata, next){
+				console.log('####', jobid, jobdata.toString());
 				jid = jobid;
-				params = JSON.parse(payload.toString());
+				params = JSON.parse(jobdata.toString());
 				work(params, next);
 			},
 		],
@@ -90,14 +90,17 @@ var reserve = function(){
 
 var work = function(params, callback){
 	var url = params.taskUrl;
-	request.post({url: params.taskUrl, form: params.data, timeout: params.timeout||60}, function(error,response,body){
+	var options = {
+      uri: url,
+      method: 'POST',
+      json: params.payload,
+      timeout: (params.timeout || 60) * 1000
+    };
+    console.log(options);
+	request.post(options, function(error,response,body){
+		console.log(error, body);
 		if (!error && response.statusCode == 200) {
-			try {
-				res = JSON.parse(body);
-			}catch (e) {
-				return callback('调用' + url + params + '失败', null);
-			}
-		    if (res.ret === 0){
+		    if (body && (body.ret === 0 || body.errcode === 0)){
 		    	return callback(null, null);
 		    }
 		}
